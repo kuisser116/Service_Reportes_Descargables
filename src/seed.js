@@ -27,7 +27,7 @@ const seedData = async () => {
         boletos.push({
             folio: `BOL-${i}`,
             eventoId: evento._id,
-            status: i <= 30 ? 'validado' : 'vendido', // 30 validados, 20 solo vendidos
+            status: i <= 30 ? 'usado' : 'disponible', // 30 usados, 20 disponibles
             fechaValidacion: i <= 30 ? new Date() : null,
             asiento: `A-${i}`,
             area: 'General',

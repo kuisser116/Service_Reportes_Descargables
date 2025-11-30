@@ -8,7 +8,7 @@ const obtenerEstadisticas = async (eventoId) => {
     if (!evento) throw new Error('Evento no encontrado');
 
     const totalBoletos = await Boleto.countDocuments({ eventoId });
-    const boletosValidados = await Boleto.countDocuments({ eventoId, status: 'validado' });
+    const boletosValidados = await Boleto.countDocuments({ eventoId, status: 'usado' });
 
     return {
         evento,

@@ -16,7 +16,7 @@ const validarBoleto = async (req, res) => {
         }
 
         // Req 5.2: Control de duplicidad
-        if (boleto.status === 'validado') {
+        if (boleto.status === 'usado') {
             return res.status(400).json({
                 mensaje: 'Boleto ya registrado en el acceso',
                 fechaValidacion: boleto.fechaValidacion
@@ -24,7 +24,7 @@ const validarBoleto = async (req, res) => {
         }
 
         // Si pasa las validaciones, permitimos el acceso
-        boleto.status = 'validado';
+        boleto.status = 'usado';
         boleto.fechaValidacion = new Date();
         await boleto.save();
 

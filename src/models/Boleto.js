@@ -5,8 +5,8 @@ const boletoSchema = new mongoose.Schema({
     eventoId: { type: mongoose.Schema.Types.ObjectId, ref: 'Evento', required: true },
     status: {
         type: String,
-        enum: ['vendido', 'validado'],
-        default: 'vendido'
+        enum: ['disponible', 'usado'],
+        default: 'disponible'
     },
     fechaValidacion: Date,
     // Campos extra para cumplir DFR 3.2
