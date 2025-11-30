@@ -15,8 +15,26 @@ const obtenerEstadisticas = async (eventoId) => {
         totalBoletos, // Vendidos
         boletosValidados,
         capacidadTotal: evento.capacidadTotal,
-        porcentajeAsistencia: ((boletosValidados / totalBoletos) * 100).toFixed(2)
+        porcentajeAsistencia: totalBoletos > 0 ? ((boletosValidados / totalBoletos) * 100).toFixed(2) : 0
     };
+};
+
+// Req 5.3: Estadísticas en tiempo real
+const verEstadisticas = async (req, res) => {
+    const { eventoId } = req.params;
+    try {
+        const stats = await obtenerEstadisticas(eventoId);
+        res.json({
+            evento: stats.evento.nombre,
+            capacidadTotal: stats.capacidadTotal,
+            asistentesIngresados: stats.boletosValidados, // "Mostrar el número total de asistentes ingresados"
+            capacidadRestante: stats.capacidadTotal - stats.boletosValidados, // "Mostrar capacidad restante del evento"
+            porcentajeAsistencia: `${stats.porcentajeAsistencia}%`
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ mensaje: 'Error al obtener estadísticas' });
+    }
 };
 
 const generarReportePDF = async (req, res) => {
@@ -89,6 +107,7 @@ const generarReporteExcel = async (req, res) => {
 };
 
 module.exports = {
+    verEstadisticas,
     generarReportePDF,
     generarReporteExcel
 };
